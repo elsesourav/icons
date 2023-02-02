@@ -29,7 +29,7 @@ let fontSize = 32;
 let timeCount = Date.now();
 let timeOutId;
 let searchValue;
-const delay = 500;
+const delay = 1000;
 
 // delay input run function
 function delayCall(fun) {
