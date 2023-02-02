@@ -26,6 +26,7 @@ w {
   color: #02a238;
 }
 
+
 body {
   position: relative;
   width: 100vw;
@@ -214,21 +215,28 @@ header #font-size input {
 #icon-selector-window #content #icon-box i:hover {
   color: #181820;
 }
-#icon-selector-window #content #tag-text {
+#icon-selector-window #content #copy-tag-sec {
   position: relative;
   width: 100%;
   height: 55px;
+  display: grid;
+  grid-template-columns: 14fr 2fr;
+  place-items: center;
   margin: 20px 0;
   background: #181820;
-  overflow-y: hidden;
-  border-radius: 10px;
-  cursor: var(--cursor);
   transition: background linear 0.2s;
+  border-radius: 10px;
 }
-#icon-selector-window #content #tag-text:hover {
+#icon-selector-window #content #copy-tag-sec:hover {
   background: #000000;
 }
-#icon-selector-window #content #tag-text p {
+#icon-selector-window #content #copy-tag-sec #tag-text {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+#icon-selector-window #content #copy-tag-sec #tag-text #copy-text {
   position: relative;
   min-width: 100%;
   width: max-content;
@@ -239,7 +247,31 @@ header #font-size input {
   align-items: center;
   justify-content: center;
 }
-
+#icon-selector-window #content #copy-tag-sec #show-copy-status {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+#icon-selector-window #content #copy-tag-sec #show-copy-status i {
+  color: #ffffff;
+  font-size: 1.1rem;
+  cursor: var(--cursor);
+}
+#icon-selector-window #content #copy-tag-sec #show-copy-status p {
+  position: absolute;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 0 3px #000;
+  display: none;
+  font-weight: 700;
+  top: -15px;
+}
+#icon-selector-window #content #copy-tag-sec #show-copy-status p.active {
+  display: block;
+}
 #icon-selector-window #content #close-button {
   position: relative;
   width: 100%;

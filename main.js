@@ -17,6 +17,9 @@ const orignalNameId = document.getElementById("orignal-name-id");
 const iconId = document.getElementById("icon-id");
 const textClassName = document.getElementById("text-class-name");
 const closeButton = document.getElementById("close-button");
+const copyButton = document.getElementById("copy-button");
+const copyText = document.getElementById("copy-text");
+const copyStatus = document.getElementById("copy-status");
 
 const searchInput = document.getElementById("search-input");
 const deleteSearch = document.getElementById("delete-search");
@@ -48,11 +51,10 @@ icons.forEach((icon, i) => {
 
         iconSelectorWindow.classList.add("active");
         iconId.classList = [];
-        iconId.classList.add("sbi");
         iconId.classList.add(codeName);
-        contentId.innerHTML = iconData[i].content; 
+        contentId.innerHTML = iconData[i].content;
         orignalNameId.innerHTML = iconData[i].name;
-        textClassName.innerHTML = `"sbi ${codeName}"`;
+        textClassName.innerHTML = `"${codeName}"`;
     })
 })
 
@@ -96,6 +98,21 @@ deleteSearch.addEventListener("click", (e) => {
     searchValue = "";
     delayCall(searchIconInData);
 })
+
+copyButton.addEventListener("click", (e) => {
+    selectText(copyText);
+    copyStatus.classList.add("active");
+    setTimeout(() => { copyStatus.classList.remove("active") }, 1000);
+})
+
+function selectText(containerid) {
+    let range = document.createRange();
+    range.selectNode(containerid);
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect
+}
 
 function searchIconInData() {
     iconData.forEach((e, i) => {
