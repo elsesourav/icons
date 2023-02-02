@@ -25,6 +25,11 @@ const searchInput = document.getElementById("search-input");
 const deleteSearch = document.getElementById("delete-search");
 const numberInput = document.getElementById("number-input");
 
+const useInfoBtn = document.getElementById("use-info-btn");
+const useInfo = document.getElementById("use-info");
+const footerClose = document.getElementById("footer-close");
+
+
 let fontSize = 32;
 let timeCount = Date.now();
 let timeOutId;
@@ -127,3 +132,11 @@ function searchIconInData() {
 function setCssFontSize() {
     cssRoot.style.setProperty("--font-size", `${fontSize}px`);
 }
+
+useInfoBtn.addEventListener("click", () => {
+    useInfo.classList.toggle("active");
+})
+
+footerClose.addEventListener("click", () => {
+    useInfo.classList.remove("active");
+})

@@ -33,6 +33,10 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+/* ==================== 
+          Header
+  ==================== */
 header {
   position: sticky;
   width: 100%;
@@ -289,4 +293,80 @@ header #search-box #delete-search {
   color: #ff0000;
   user-select: none;
   box-shadow: 0 0 3px #000;
+}
+
+
+
+/* ==================== 
+          Footer
+  ==================== */
+#use-info-btn {
+  position: fixed;
+  padding: 6px 9px;
+  font-size: 2rem;
+  z-index: 10;
+  left: 5px;
+  backdrop-filter: blur(3px);
+  background: #0007;
+  color: #0f0;
+  display: grid;
+  place-items: center;
+  border-radius: 100%;
+  bottom: 10vh;
+  box-shadow: 0 0 2px #000;
+  cursor: var(--cursor);
+}
+#use-info {
+  position: fixed;
+  width: 100%;
+  height: var(--header-h);
+  z-index: 9;
+  background: #181820;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: 6fr 2fr;
+  place-items: center;
+  padding: 0 20vw;
+  transition: top linear 0.3s;
+}
+#use-info.active {
+  top: var(--header-h);
+}
+#use-info #footer-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #f00;
+  font-size: 1rem;
+  cursor: var(--cursor);
+}
+#use-info #copyright {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  font-size: 0.6rem;
+  text-decoration: none;
+  color: #444;
+  font-weight: 900;
+}
+#use-info #use-link {
+  display: flex;
+  gap: 5px;
+  text-decoration: none;
+  color: #00b3ff;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 20px;
+  border-radius: 6px;
+  border: 1px #00f solid;
+  background: rgba(0, 0, 0, 0.1);
+}
+#use-info #use-link i:first-child {
+  font-size: 0.9rem;
+}
+#use-info #download-icons {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #1639ff;
 }
