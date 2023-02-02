@@ -94,6 +94,7 @@ header #search-box #delete-search {
   width: 100%;
   height: calc(100% - var(--header-h));
   padding: 2vh 10px;
+  padding-bottom: 10vh;
   overflow-x: hidden;
   overflow-y: scroll;
 }
