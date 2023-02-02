@@ -48,31 +48,41 @@ header {
 header #font-size,
 header #search-box {
   position: relative;
-  padding: 0 4vw;
+  padding: 0 6px;
   width: 100%;
-  max-width: 400px;
+  max-width: 300px;
   height: 45%;
   display: grid;
   place-items: center;
-  gap: 1vw;
+  grid-template-columns: 1fr 8fr;
+  gap: 5px;
 }
 header #font-size {
   grid-template-columns: 5fr 4fr 2fr;
 }
+header #search-box #delete-search {
+  position: absolute;
+  right: 20px;
+  cursor: var(--cursor);
+  color: #000000aa; 
+}
+
 header #font-size input,
 header #search-box input {
   position: relative;
   width: 100%;
+  min-width: 120px;
   outline: none;
   border: none;
   box-shadow: inset 1px 1px 2px #0007;
-  padding: 4px 2vw;
+  padding: 4px 10px;
   font-size: 16px;
   border-radius: 10px;
   height: auto;
 }
-header #search-box input {
+header #font-size input {
   width: 80%;
+  min-width: 60px;
   font-weight: 500;
 }
 

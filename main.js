@@ -19,6 +19,7 @@ const textClassName = document.getElementById("text-class-name");
 const closeButton = document.getElementById("close-button");
 
 const searchInput = document.getElementById("search-input");
+const deleteSearch = document.getElementById("delete-search");
 const numberInput = document.getElementById("number-input");
 
 let fontSize = 32;
@@ -40,7 +41,6 @@ function delayCall(fun) {
 
     timeCount = newTime;
 }
-
 
 icons.forEach((icon, i) => {
     icon.addEventListener("click", () => {
@@ -74,22 +74,28 @@ numberInput.addEventListener("focusout", (e) => {
     if (isNaN(val)) {
         e.target.value = 32;
         fontSize = 32;
-        delayCall(setCssFontSize)
+        delayCall(setCssFontSize);
     }
 })
 
 searchInput.addEventListener("keyup", (e) => {
     let val = e.target.value;
+    searchValue = val;
     if (val.length < 1 || !val) {
         icons.forEach((_, i) => {
             icons[i].classList.remove("hide");
         })
         return;
     }
-    searchValue = val;
     delayCall(searchIconInData);
 });
 
+deleteSearch.addEventListener("click", (e) => {
+    searchInput.value = "";
+    searchInput.select();
+    searchValue = "";
+    delayCall(searchIconInData);
+})
 
 function searchIconInData() {
     iconData.forEach((e, i) => {
