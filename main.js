@@ -139,4 +139,4 @@ useInfoBtn.addEventListener("click", () => {
 
 footerClose.addEventListener("click", () => {
     useInfo.classList.remove("active");
-})
+}) 

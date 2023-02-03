@@ -319,10 +319,10 @@ header #search-box #delete-search {
 #use-info {
   position: fixed;
   width: 100%;
-  height: var(--header-h);
+  height: calc(var(--header-h) * 1.5);
   z-index: 9;
   background: #181820;
-  top: 0;
+  top: calc(var(--header-h) * -0.5);
   left: 0;
   display: grid;
   grid-template-columns: 6fr 2fr;
@@ -330,8 +330,14 @@ header #search-box #delete-search {
   padding: 0 20vw;
   transition: top linear 0.3s;
 }
+
 #use-info.active {
   top: var(--header-h);
+}
+@media only screen and (max-width: 400px) {
+  #use-info {
+    padding: 0 2vw;
+  }
 }
 #use-info #footer-close {
   position: absolute;
@@ -343,7 +349,7 @@ header #search-box #delete-search {
 }
 #use-info #copyright {
   position: absolute;
-  right: 10px;
+  left: 10px;
   bottom: 5px;
   font-size: 0.6rem;
   text-decoration: none;
