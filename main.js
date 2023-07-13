@@ -34,20 +34,16 @@ let fontSize = 32;
 let timeCount = Date.now();
 let timeOutId;
 let searchValue;
-const delay = 1000;
 
 // delay input run function
-function delayCall(fun) {
-    let newTime = Date.now();
-
-    if (timeCount < (newTime - delay)) {
-        clearTimeout(timeOutId);
-        timeOutId = setTimeout(() => {
-            fun();
-        }, delay);
+function debounce(func, delay = 1000) {
+    let debounceTimer
+    return () => {
+        const context = this
+        const args = arguments
+        clearTimeout(debounceTimer)
+        debounceTimer = setTimeout(() => func.apply(context, args), delay)
     }
-
-    timeCount = newTime;
 }
 
 icons.forEach((icon, i) => {
@@ -73,7 +69,7 @@ numberInput.addEventListener("keyup", (e) => {
     else if (val > 200) e.target.value = 200;
 
     fontSize = e.target.value;
-    delayCall(setCssFontSize);
+    debounce(setCssFontSize);
 })
 
 numberInput.addEventListener("focusout", (e) => {
@@ -81,7 +77,7 @@ numberInput.addEventListener("focusout", (e) => {
     if (isNaN(val)) {
         e.target.value = 32;
         fontSize = 32;
-        delayCall(setCssFontSize);
+        debounce(setCssFontSize);
     }
 })
 
@@ -94,14 +90,14 @@ searchInput.addEventListener("keyup", (e) => {
         })
         return;
     }
-    delayCall(searchIconInData);
+    debounce(searchIconInData);
 });
 
 deleteSearch.addEventListener("click", (e) => {
     searchInput.value = "";
     searchInput.select();
     searchValue = "";
-    delayCall(searchIconInData);
+    debounce(searchIconInData);
 })
 
 copyButton.addEventListener("click", (e) => {
