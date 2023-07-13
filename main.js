@@ -36,14 +36,12 @@ let timeOutId;
 let searchValue;
 
 // delay input run function
-function debounce(func, delay = 1000) {
-    let debounceTimer
-    return () => {
-        const context = this
-        const args = arguments
-        clearTimeout(debounceTimer)
-        debounceTimer = setTimeout(() => func.apply(context, args), delay)
-    }
+function debounce(callback, delay = 1000) {
+    let timeout;
+    return function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(callback, delay);
+    };
 }
 
 icons.forEach((icon, i) => {
@@ -63,26 +61,26 @@ closeButton.addEventListener("click", () => {
     iconSelectorWindow.classList.remove("active");
 })
 
-numberInput.addEventListener("keyup", (e) => {
-    let val = parseInt(e.target.value);
-    if (val < 1) e.target.value = 1;
-    else if (val > 200) e.target.value = 200;
+numberInput.addEventListener("keyup", debounce(() => {
+    let val = parseInt(numberInput.value);
+    if (val < 1) numberInput.value = 1;
+    else if (val > 200) numberInput.value = 200;
 
-    fontSize = e.target.value;
-    debounce(setCssFontSize);
-})
+    fontSize = numberInput.value;
+    setCssFontSize();
+}))
 
-numberInput.addEventListener("focusout", (e) => {
-    let val = parseInt(e.target.value);
+numberInput.addEventListener("focusout", debounce(() => {
+    let val = parseInt(numberInput.value);
     if (isNaN(val)) {
-        e.target.value = 32;
+        numberInput.value = 32;
         fontSize = 32;
-        debounce(setCssFontSize);
+        setCssFontSize();
     }
-})
+}))
 
-searchInput.addEventListener("keyup", (e) => {
-    let val = e.target.value;
+searchInput.addEventListener("keyup", debounce(() => {
+    let val = searchInput.value;
     searchValue = val;
     if (val.length < 1 || !val) {
         icons.forEach((_, i) => {
@@ -90,15 +88,15 @@ searchInput.addEventListener("keyup", (e) => {
         })
         return;
     }
-    debounce(searchIconInData);
-});
+    searchIconInData();
+}));
 
-deleteSearch.addEventListener("click", (e) => {
+deleteSearch.addEventListener("click", debounce(() => {
     searchInput.value = "";
     searchInput.select();
     searchValue = "";
-    debounce(searchIconInData);
-})
+    searchIconInData();
+}));
 
 copyButton.addEventListener("click", (e) => {
     selectText(copyText);
