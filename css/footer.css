@@ -1,0 +1,101 @@
+footer {
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+   height: var(--footer-h);
+   background: #ddd;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   box-shadow: 0 -3px 3px #00000055;
+   z-index: 10;
+}
+
+#pages {
+   position: relative;
+   width: calc(var(--pages-w) * 6);
+   height: auto;
+   display: flex;
+   justify-content: center;
+   gap: var(--gap);
+   padding: var(--gap);
+}
+#pages .page {
+   position: relative;
+   width: var(--pages-w);
+   height: var(--pages-w);
+   display: none;
+   place-items: center;
+   border-radius: var(--gap);
+   background: rgba(255, 255, 255, 0.5);
+   border: solid 1px #fff;
+   box-shadow: 0 1px 2px #000;
+   cursor: var(--cursor);
+   font-weight: 900;
+   -webkit-user-select: none;
+   user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+#pages .page::after {
+   content: "";
+   position: absolute;
+   width: 90%;
+   height: 50%;
+   top: 5%;
+   background: rgba(255, 255, 255, 0.8);
+   border-radius: var(--gap);
+   z-index: -1;
+}
+#pages .page.show {
+   display: grid;
+}
+#pages .page.active {
+   color: #000dff;
+   box-shadow: inset 0 0 5px #000971;
+}
+#pages .page.active::after {
+   background: rgba(255, 255, 255, 0.6);
+}
+#use-info-btn {
+   position: relative;
+   width: calc(var(--pages-w) * 1.1);
+   height: calc(var(--pages-w) * 1.1);
+   color: #0f0;
+   font-size: 1.7rem;
+   display: grid;
+   place-items: center;
+   text-shadow: 0 0 3px #000;
+   cursor: var(--cursor);
+}
+#colorMod {
+   position: relative;
+   width: calc(var(--pages-w) * 1.1);
+   height: calc(var(--pages-w) * 1.1);
+   color: #2c2c2c;
+   font-size: 1.5rem;
+   display: grid;
+   place-items: center;
+}
+
+#colorMod.night {
+   color: #fffed0;
+}
+
+@media only screen and (min-width: 800px) {
+   :root {
+      --footer-h: 70px;
+      --pages-w: 46px;
+   }
+   #pages {
+      position: relative;
+      min-width: var(--pages-w);
+      max-width: 400px;
+   }
+   footer .logo {
+      scale: 1.5;
+   }
+   #pages .page {
+      font-size: 1.5rem;
+   }
+}
