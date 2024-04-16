@@ -9,21 +9,21 @@ if (isMobile) {
 
 /* ------ global variable ------ */
 const MAX_PAGE_RENDER = 400;
+const HTML_ICON_ELEMENTS = [];
 const MAX_PAGE_BUTTON = 5;
 const MAX_FONT = 200;
-const MIN_FONT = 10;
+const MIN_FONT = 20;
 const INPUT_DELAY = 500; // ms
 
 let allResults = [];
 let htmlIconStrings = "";
-let currentPageIndex = 0;
-let maxPagePossible = 0;
 let fontSize = 32;
 let colorOnly = false;
 let targetValue = "";
 
+
+
 /* ----- find elements from document ------ */
-const icons = document.querySelectorAll(".icon");
 const iconSelectorWindow = document.getElementById("icon-selector-window");
 const contentId = document.getElementById("content-id");
 const originalNameId = document.getElementById("original-name-id");
@@ -41,6 +41,33 @@ const numberInput = document.getElementById("number-input");
 const useInfoBtn = document.getElementById("use-info-btn");
 const useInfo = document.getElementById("use-info");
 const footerClose = document.getElementById("footer-close");
+
+
+// setup all html icons elements based on MAX_PAGE_RENDER
+;(() => {
+   const scrollList = document.getElementById("scroll-list");
+   for (let i = 0; i < MAX_PAGE_RENDER; i++) {
+      const icon = document.createElement("div");
+      icon.classList.add("icon", "hide");
+      const iTag = document.createElement("i");
+      const p = document.createElement("p");
+      icon.append(iTag, p);
+      HTML_ICON_ELEMENTS.push([icon, iTag, p]);
+      scrollList.append(icon);
+
+      icon.addEventListener("click", () => {
+         let codeName = `sbi-${p.innerHTML.split(" ").join("-")}`;
+         iconSelectorWindow.classList.add("active");
+         iconId.classList = [];
+         iconId.classList.add(codeName);
+         contentId.innerHTML = p.getAttribute("value");
+         originalNameId.innerHTML = p.innerHTML;
+         textClassName.innerHTML = codeName;
+      });
+   }
+
+   
+})();
 
 // delay input run function
 function debounce(callback) {
@@ -63,19 +90,6 @@ function sizeInput() {
    numberInput.value = fontSize = val;
    setCssFontSize();
 }
-
-icons.forEach((icon, i) => {
-   icon.addEventListener("click", () => {
-      let codeName = `sbi-${iconData[i].name.split(" ").join("-")}`;
-
-      iconSelectorWindow.classList.add("active");
-      iconId.classList = [];
-      iconId.classList.add(codeName);
-      contentId.innerHTML = iconData[i].content;
-      originalNameId.innerHTML = iconData[i].name;
-      textClassName.innerHTML = `"${codeName}"`;
-   });
-});
 
 closeButton.addEventListener("click", (e) => {
    // if (e.target !== closeButton || e.target !== iconSelectorWindow) {
@@ -116,13 +130,17 @@ deleteSearch.addEventListener(
    })
 );
 
-copyButton.addEventListener("click", (e) => {
-   selectText(copyText);
+function copyElementText(copyElement) {
+   selectText(copyElement);
    copyStatus.classList.add("active");
    setTimeout(() => {
       copyStatus.classList.remove("active");
    }, 1000);
-});
+}
+
+textClassName.addEventListener("click", () => copyElementText(textClassName));
+contentId.addEventListener("click", () => copyElementText(contentId));
+copyButton.addEventListener("click", () => copyElementText(copyText));
 
 iconColorMod.addEventListener("click", () => {
    colorOnly = !colorOnly;
@@ -149,81 +167,30 @@ function getResults(data, target, isColor = false) {
    });
 }
 
-function setupIcons(iconName) {
-   allHtmlIcons += `
-   <div class="icon">
-      <i class="sbi ${iconName.split(" ").join("-")}"></i>
-      <p>${iconName}</p>
-   </div>`;
+function setupIcons(iconName, iconId, i) {
+   const [icon, iTag, p] = HTML_ICON_ELEMENTS[i];
+   icon.classList.remove("hide");
+   iTag.classList = [];
+   p.setAttribute("value", iconId)
+   iTag.classList.add("sbi", `sbi-${iconName.split(" ").join("-")}`);
+   p.innerHTML = iconName;
 }
 
 const pagesElement = document.getElementById("pages");
-// PAGES.forEach((page, i) => {
-//    page.addEventListener("click", () => {
-//       if (i === 0) {
-//          currentPageIndex = Math.max(0, currentPageIndex - MAX_PAGE_BUTTON - 1);
-//       } else if (i === PAGES.length - 1) {
-//          currentPageIndex = Math.min(
-//             maxPagePossible - 1,
-//             currentPageIndex + MAX_PAGE_BUTTON
-//          );
-//       } else {
-//          currentPageIndex += i;
-//       }
-//       makePages();
-//    });
-// });
-
-
-
-// function makePages() {
-//    PAGES.forEach(page => {
-//       page.classList.remove("sbi-dots-three-horizontal");
-//       page.innerHTML = "";
-//       page.classList.add("active");
-//    });
-//    console.log(maxPagePossible, currentPageIndex);
-//    if (
-//       currentPageIndex > 0 &&
-//       currentPageIndex + MAX_PAGE_BUTTON < maxPagePossible
-//    ) {
-//       PAGES[0].classList.add("sbi-dots-three-horizontal");
-//       PAGES[1].innerHTML = currentPageIndex + 1;
-//       PAGES[2].innerHTML = currentPageIndex + 2;
-//       PAGES[3].innerHTML = currentPageIndex + 3;
-//       PAGES[4].classList.add("sbi-dots-three-horizontal");
-//    } else if (
-//       currentPageIndex > 0 &&
-//       currentPageIndex + MAX_PAGE_BUTTON === maxPagePossible
-//    ) {
-//       PAGES[0].classList.add("sbi-dots-three-horizontal");
-//       PAGES[1].innerHTML = Math.min(currentPageIndex + 1, maxPagePossible);
-//       PAGES[2].innerHTML = Math.min(currentPageIndex + 2, maxPagePossible);
-//       PAGES[3].innerHTML = Math.min(currentPageIndex + 3, maxPagePossible);
-//       PAGES[4].innerHTML = Math.min(currentPageIndex + 4, maxPagePossible);
-//       console.log(currentPageIndex + 4, maxPagePossible);
-//    } else if (maxPagePossible > MAX_PAGE_BUTTON && currentPageIndex === 0) {
-//       PAGES[0].innerHTML = currentPageIndex + 1;
-//       PAGES[1].innerHTML = currentPageIndex + 2;
-//       PAGES[2].innerHTML = currentPageIndex + 3;
-//       PAGES[3].innerHTML = currentPageIndex + 4;
-//       PAGES[4].classList.add("sbi-dots-three-horizontal");
-//    } else {
-//       console.log(maxPagePossible);
-//       for (let i = 0; i <= MAX_PAGE_BUTTON; i++) {
-//          if (i < maxPagePossible) {
-//             PAGES[i].innerHTML = currentPageIndex + i + 1;
-//          } else {
-//             PAGES[i].classList.remove("active");
-//          }
-//       }
-//    }
-// }
-
 const pages = new Pages(MAX_PAGE_BUTTON, pagesElement, pageClickAction, pageClickAction);
 
 function pageClickAction(current) {
-   
+   let j, i = current * MAX_PAGE_RENDER;
+   let n = Math.min(allResults.length, (current + 1) * MAX_PAGE_RENDER);
+
+   for (j = 0; i < n; i++, j++) {
+      const {name, icon} = allResults[i];
+      setupIcons(name, icon, j);
+   }
+   for (; j < MAX_PAGE_RENDER; j++) {
+      const [icon] = HTML_ICON_ELEMENTS[j];
+      icon.classList.add("hide");
+   }
 }
 
 function searchIconAndDisplay() {
@@ -237,18 +204,19 @@ function searchIconAndDisplay() {
       // sorting the result based on lowest keyword_find_index
       allResults.sort((a, b) => a[1] - b[1]);
 
-      allResults.map(([i, _, isColor]) => {
+      allResults = allResults.map(([i, _, isColor]) => {
          if (isColor) return COLOR_ICONS[i];
-         else ICONS[i];
+         else return ICONS[i];
       });
    } else {
       if (colorOnly) allResults = [...COLOR_ICONS];
       else allResults = [...ICONS, ...COLOR_ICONS];
    }
 
-   maxPagePossible = Math.ceil(allResults.length / MAX_PAGE_RENDER);
+   const maxPagePossible = Math.ceil(allResults.length / MAX_PAGE_RENDER);
 
-   pages.update(maxPagePossible, 0);
+   pages.update(maxPagePossible);
+   pageClickAction(0);
 }
 
 searchIconAndDisplay();

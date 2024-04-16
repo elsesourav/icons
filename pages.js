@@ -35,9 +35,8 @@ class Pages {
       });
    }
 
-   #updatePages() {
+   #updatePages(left, right, start) {
       const { possible, maxPages, current, pages, nextIcon } = this;
-      let activeIndex = 0;
 
       // clear page value
       pages.forEach((page) => {
@@ -45,85 +44,77 @@ class Pages {
          page.innerHTML = "";
       });
 
-      // update page value
       if (possible > maxPages) {
-         pages.forEach((p) => p.classList.add("show"));
-
-         if (current < maxPages) {
-            pages.forEach((page, i) => {
-               if (i < maxPages - 1) page.innerHTML = i + 1;
-               else page.classList.add(nextIcon);
-            });
-
-            activeIndex = Math.min(
-               current !== 0 ? current - 1 : 0,
-               maxPages - 2
-            );
-
-         } else if (current + maxPages < possible) {
-            pages.forEach((page, i) => {
-               if (i === 0) page.classList.add(nextIcon);
-               else if (i < maxPages - 1) page.innerHTML = i + 1;
-               else page.classList.add(nextIcon);
-            });
-         } else {
-            let maxIndex = 0;
-
-            pages.forEach((page, i) => {
-               if (i === 0) page.classList.add(nextIcon);
-               else page.innerHTML = possible - (maxPages - i - 1);
-               if (possible - (maxPages - i - 1) === current + 1) maxIndex = i;
-            });
-            activeIndex = Math.max(maxIndex, 1);
-            console.log(activeIndex);
-         }
-      } else {
          pages.forEach((page, i) => {
-            if (possible > i) {
-               page.classList.add("show");
-               page.innerHTML = i + 1;
-            }
-         });
-      }
+            const newI = left ? start + i - 1 : start + i;
 
-      pages[activeIndex].classList.add("active");
+            if (i == 0 && left) page.classList.add(nextIcon, "show");
+            else if (i == maxPages - 1 && right)
+               page.classList.add(nextIcon, "show");
+            else {
+               page.classList.add("show");
+               page.innerHTML = newI;
+            }
+            if (newI === current) page.classList.add("active");
+         });
+      } else {
+         for (let i = 0; i < possible; i++) {
+            const page = pages[i];
+            if (i == 0 ) page.classList.add("active");
+            page.classList.add("show");
+            page.innerHTML = i + 1;
+         }
+      }
    }
 
    #pageEventListener() {
-      const { maxPages, pages } = this;
-
-      pages.forEach((page, i) => {
+      this.pages.forEach((page, i) => {
          page.addEventListener("click", () => {
-            pages.forEach((p) => p.classList.remove("active"));
-            if (
-               page.classList.contains(this.nextIcon)
-               // &&
-               //    this.current + maxPages > this.possible
-            ) {
-               const temp = i === 0 ? -(maxPages - 1) : maxPages - 1;
-               this.current = this.current + temp;
-               this.clickAction();
-               this.#updatePages();
-               // pages[i===0?maxPages-1:0].classList.add("active");
+            const { possible, maxPages, current, pages, nextIcon } = this;
+
+            if (page.classList.contains(nextIcon) && possible > maxPages) {
+               const offset = maxPages - 1;
+               const temp = i == 0 ? offset * -1 : offset;
+
+               if (i === 0) {
+                  const page1Value = parseInt(pages[1].innerText) - 1;
+
+                  if (page1Value + temp > 0) {
+                     this.current = page1Value;
+                     this.#updatePages(true, true, page1Value - (maxPages - 3));
+                  } else {
+                     this.current = page1Value;
+                     this.#updatePages(false, true, 1);
+                  }
+               } else {
+                  const pageN1Value =
+                     parseInt(pages[maxPages - 2].innerText) + 1;
+
+                  if (current + temp + 1 < possible) {
+                     this.current = pageN1Value;
+                     this.#updatePages(true, true, pageN1Value);
+                  } else {
+                     this.current = pageN1Value;
+                     this.#updatePages(true, false, possible - (maxPages - 2));
+                  }
+               }
             } else {
-               console.log("work");
+               pages.forEach((p) => p.classList.remove("active"));
                this.current = parseInt(page.innerText);
                pages[i].classList.add("active");
-               this.clickAction();
             }
-
-            console.log(this.current);
+            this.clickAction();
          });
       });
    }
 
-   update(possible, current = 0) {
+   update(possible) {
       this.possible = possible;
-      this.current = current;
-      this.#updatePages();
+      this.current = 1;
+      this.#updatePages(false, true, 1);
    }
 
    clickAction() {
-      this.clickCallback(this.current);
+      this.clickCallback(this.current - 1);
    }
 }

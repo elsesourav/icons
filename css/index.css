@@ -19,11 +19,11 @@
 /* remove size increase and decrease button */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+   -webkit-appearance: none;
+   margin: 0;
 }
-input[type=number] {
-  -moz-appearance: textfield;
+input[type="number"] {
+   -moz-appearance: textfield;
 }
 
 x {
@@ -53,9 +53,9 @@ body {
    position: relative;
    width: 100svw;
    height: 100svh;
+   background: #dddddd;
    overflow: hidden;
 }
-
 
 /* @media (prefers-color-scheme: light) {
    body {
@@ -64,14 +64,12 @@ body {
    }
 } */
 
-
 /* @media (prefers-color-scheme: dark) {
    body {
        background-color: black;
        color: white;
    }
 } */
-
 
 /* ==================== 
         All Icons
@@ -80,7 +78,7 @@ body {
    --m: 10px;
    position: relative;
    max-width: 100%;
-   height: calc(100% - var(--header-h)*2);
+   height: calc(100% - var(--header-h) + var(--footer-h));
    padding: var(--m) 1rem;
    display: flex;
    justify-content: center;
@@ -104,34 +102,43 @@ body {
    position: relative;
    width: 100%;
    height: calc(var(--font-size) * 2.5);
-   border-radius: calc(var(--font-size) / 4);
+   border-radius: calc(var(--font-size) / 6);
    display: grid;
-   border: solid 1px #bbb;
-   grid-template-rows: 5fr 4fr;
+   border: solid 2px #ffffff;
+   grid-template-rows: 5fr 3fr;
    box-shadow: 0 0 0 #000;
-   background: #eee;
+   background: #eeeeee;
    cursor: var(--cursor);
-   transition: background linear 0.2s, box-shadow ease-in 0.2s;
+   overflow: hidden;
+   transition: background ease-in-out 200ms, box-shadow ease-in-out 200ms;
 }
 #icon-grid #scroll-list .icon.hide {
    display: none;
 }
 #icon-grid #scroll-list .icon:hover {
-   background: #0ff;
-   box-shadow: 0 0 calc(var(--font-size) / 5) #000;
+   background: radial-gradient(circle, #b9feff 0%, #00fff6 100%);;
+   box-shadow: 0 calc(var(--gap) / 2) var(--gap) #000;
 }
 #icon-grid #scroll-list .icon i {
    font-size: var(--font-size);
-   color: #002472;
+   color: #221a4b;
    display: flex;
    justify-content: center;
    align-items: flex-end;
+   padding-bottom: var(--gap);
 }
 #icon-grid #scroll-list .icon p {
    font-size: calc(var(--font-size) / 4);
+   color: #000;
    display: grid;
+   padding: 2px 3px;
+   background: rgba(255, 255, 255, 0.2);
    place-items: center;
    text-align: center;
+   transition: background ease-in-out 200ms;
+}
+#icon-grid #scroll-list .icon:hover p {
+   background: rgba(255, 255, 255, 0.5);
 }
 
 /* ==================== 
@@ -139,8 +146,8 @@ body {
   ==================== */
 #icon-selector-window {
    position: fixed;
-   width: 100vw;
-   height: 100vh;
+   width: 100svw;
+   height: 100svh;
    left: 0;
    top: 0;
    background: rgba(0, 0, 0, 0.6);
@@ -173,19 +180,15 @@ body {
    font-size: 0.9rem;
    font-weight: 700;
    color: #aaa;
+   cursor: copy;
 }
 #icon-selector-window #content #icon-title {
    position: relative;
    width: 100%;
    height: 40px;
+   display: grid;
+   place-items: center;
    overflow-y: hidden;
-}
-#icon-selector-window #content #icon-title p {
-   position: relative;
-   min-width: 100%;
-   width: max-content;
-   display: flex;
-   justify-content: center;
 }
 #icon-selector-window #content #icon-box {
    position: relative;
@@ -198,7 +201,7 @@ body {
    font-size: 6rem;
    color: #002472;
    cursor: var(--cursor);
-   transition: color linear 0.2s;
+   transition: color ease-in-out 200ms;
 }
 #icon-selector-window #content #icon-box i:hover {
    color: #181820;
@@ -206,13 +209,14 @@ body {
 #icon-selector-window #content #copy-tag-sec {
    position: relative;
    width: 100%;
-   height: 55px;
+   height: 45px;
    display: grid;
    grid-template-columns: 14fr 2fr;
    place-items: center;
    margin: 20px 0;
+   padding: var(--gap);
    background: #181820;
-   transition: background linear 0.2s;
+   transition: background ease-in-out 200ms;
    border-radius: 10px;
 }
 #icon-selector-window #content #copy-tag-sec:hover {
@@ -235,6 +239,9 @@ body {
    align-items: center;
    justify-content: center;
 }
+#icon-selector-window #content #copy-tag-sec #tag-text #copy-text #text-class-name {
+   cursor: copy;
+}
 #icon-selector-window #content #copy-tag-sec #show-copy-status {
    position: relative;
    width: 100%;
@@ -245,33 +252,38 @@ body {
 #icon-selector-window #content #copy-tag-sec #show-copy-status i {
    color: #ffffff;
    font-size: 1.1rem;
-   cursor: var(--cursor);
+   cursor: copy;
 }
 #icon-selector-window #content #copy-tag-sec #show-copy-status p {
-   position: absolute;
-   padding: 3px 6px;
+   position: fixed;
+   height: 40px;
+   width: 100px;
+   bottom: 15svh;
+   left: calc(50% - 50px);
    border-radius: 6px;
-   background: #ffffff;
-   box-shadow: 0 0 3px #000;
+   background: #eeeeee;
+   border: solid 3px #fff;
+   place-items: center;
+   box-shadow: 0 0 10px #000000;
    display: none;
    font-weight: 700;
-   top: -15px;
+   z-index: 20;
 }
 #icon-selector-window #content #copy-tag-sec #show-copy-status p.active {
-   display: block;
+   display: grid;
 }
 #icon-selector-window #content #close-button {
    position: relative;
    width: 100%;
    height: auto;
-   box-shadow: inset 0 0 3px #000;
+   box-shadow: 0 1px 3px #000;
    padding: 10px 0;
    border-radius: 20px;
    text-align: center;
    text-transform: uppercase;
    background: #fff;
    font-weight: 600;
-   transition: linear 0.2s;
+   transition: linear 200ms;
    cursor: var(--cursor);
 }
 #icon-selector-window #content #close-button:hover {
@@ -294,7 +306,7 @@ body {
    bottom: calc(var(--footer-h) * -1.2);
    left: 0;
    display: grid;
-   border: solid 5px #39ff39;
+   border: solid 3px #02a238;
    grid-template-columns: 6fr 2fr;
    place-items: center;
    padding: 2rem;
