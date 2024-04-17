@@ -86,7 +86,7 @@ footer {
 
 @media only screen and (min-width: 800px) {
    :root {
-      --footer-h: 70px;
+      --footer-h: 80px;
       --pages-w: 46px;
    }
    #pages {

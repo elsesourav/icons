@@ -6,10 +6,10 @@
    /* outline: solid 1px #f00; */
 }
 :root {
-   --header-h: 50px;
-   --footer-h: 45px;
+   --header-h: 56px;
+   --footer-h: 56px;
    --font-size: 32px;
-   --pages-w: 30px;
+   --pages-w: 36px;
    --gap: 5px;
    --cursor: pointer;
 }
