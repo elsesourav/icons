@@ -57,20 +57,6 @@ body {
    overflow: hidden;
 }
 
-/* @media (prefers-color-scheme: light) {
-   body {
-       background-color: white;
-       color: black;
-   }
-} */
-
-/* @media (prefers-color-scheme: dark) {
-   body {
-       background-color: black;
-       color: white;
-   }
-} */
-
 /* ==================== 
         All Icons
   ==================== */
@@ -97,6 +83,7 @@ body {
       auto-fill,
       minmax(calc(var(--font-size) * 2.5), 1fr)
    );
+   padding-bottom: calc(var(--font-size) * 4);
 }
 #icon-grid #scroll-list .icon {
    position: relative;
@@ -368,5 +355,66 @@ body {
    #use-info #copyright {
       left: 30px;
       bottom: 10px;
+   }
+}
+
+@media (prefers-color-scheme: dark) {
+   body {
+       background-color: #222222;
+   }
+
+   #icon-grid #scroll-list .icon {
+      border: solid 2px #000000;
+      box-shadow: 0 0 0 #000000;
+      background: #282a2e;
+   }
+
+   #icon-grid #scroll-list .icon:hover {
+      background: radial-gradient(circle, #000ba9 0%, #000547 100%);
+      box-shadow: 0 var(--gap) calc(var(--gap)*2) #000000;
+   }
+   #icon-grid #scroll-list .icon i {
+      color: #e1fff9;
+   }
+   #icon-grid #scroll-list .icon p {
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.2);
+   }
+   #icon-grid #scroll-list .icon:hover p {
+      background: rgba(0, 0, 0, 0.5);
+   }
+
+   #use-info {
+      background: #000000;
+      border: solid 3px #400064;
+   }
+
+   #icon-selector-window {
+      background: rgba(0, 0, 0, 0.7);
+   }
+   #icon-selector-window #content {
+      background: #282a38;
+      border-style: solid;
+      border-color: #fff #888 #888 #fff;
+   }
+
+   #icon-selector-window #content #content-id {
+      color: #6d6d6d;
+   }
+   #icon-selector-window #content #icon-box i {
+      color: #d1cfff;
+   }
+   #icon-selector-window #content #icon-box i:hover {
+      color: #ffffff;
+   }
+   #icon-selector-window #content #close-button {
+      box-shadow: 0 2px 6px #000000;
+      background: #111111;
+      color: #ffffff;
+   }
+   #icon-selector-window #content #close-button:hover {
+      background: #adadad;
+      color: #ff0000;
+      box-shadow: 0 0 2px #000;
    }
 }
