@@ -1,5 +1,6 @@
 // when run this app in mobile is return true
-const isMobile = localStorage.mobile || window.navigator.maxTouchPoints > 1;
+const isMobile = localStorage.mobile || navigator.maxTouchPoints > 1;
+const colorScheme = matchMedia("(prefers-color-scheme: dark)");
 //use cssRoot.style.setProperty("key", "value");
 const cssRoot = document.querySelector(":root");
 
@@ -19,8 +20,8 @@ let allResults = [];
 let htmlIconStrings = "";
 let fontSize = 32;
 let colorOnly = false;
+let colorMode = colorScheme.matches ? "dark" : "light";;
 let targetValue = "";
-
 
 
 /* ----- find elements from document ------ */
@@ -41,10 +42,35 @@ const numberInput = document.getElementById("number-input");
 const useInfoBtn = document.getElementById("use-info-btn");
 const useInfo = document.getElementById("use-info");
 const footerClose = document.getElementById("footer-close");
+const iconColorMod = document.getElementById("iconColorMod");
+const colorModeButton = document.getElementById("colorMod");
 
+colorScheme.addEventListener("change", () => {
+   if (!localStorage.getItem("colorScheme")) {
+      colorMode = colorScheme.matches ? "dark" : "light";
+      colorChangeScheme();
+   }
+});
+
+colorModeButton.addEventListener("click", () =>{
+   colorMode = colorMode == "dark" ? "light" : "dark";
+   console.log(colorMode);
+   localStorage.setItem("colorScheme", colorMode);
+   document.body.classList.toggle("dark", colorMode == "dark");
+   colorChangeScheme();
+});
+
+colorChangeScheme();
+
+function colorChangeScheme() {
+   const mode = localStorage.getItem("colorScheme");
+   if ((mode && mode === "dark") || (!mode && colorMode === "dark")) {
+      document.body.classList.add("dark");
+   } else document.body.classList.remove("dark");
+}
 
 // setup all html icons elements based on MAX_PAGE_RENDER
-;(() => {
+(() => {
    const scrollList = document.getElementById("scroll-list");
    for (let i = 0; i < MAX_PAGE_RENDER; i++) {
       const icon = document.createElement("div");
@@ -65,8 +91,6 @@ const footerClose = document.getElementById("footer-close");
          textClassName.innerHTML = codeName;
       });
    }
-
-   
 })();
 
 // delay input run function
@@ -171,20 +195,26 @@ function setupIcons(iconName, iconId, i) {
    const [icon, iTag, p] = HTML_ICON_ELEMENTS[i];
    icon.classList.remove("hide");
    iTag.classList = [];
-   p.setAttribute("value", iconId)
+   p.setAttribute("value", iconId);
    iTag.classList.add("sbi", `sbi-${iconName.split(" ").join("-")}`);
    p.innerHTML = iconName;
 }
 
 const pagesElement = document.getElementById("pages");
-const pages = new Pages(MAX_PAGE_BUTTON, pagesElement, pageClickAction, pageClickAction);
+const pages = new Pages(
+   MAX_PAGE_BUTTON,
+   pagesElement,
+   pageClickAction,
+   pageClickAction
+);
 
 function pageClickAction(current) {
-   let j, i = current * MAX_PAGE_RENDER;
+   let j,
+      i = current * MAX_PAGE_RENDER;
    let n = Math.min(allResults.length, (current + 1) * MAX_PAGE_RENDER);
 
    for (j = 0; i < n; i++, j++) {
-      const {name, icon} = allResults[i];
+      const { name, icon } = allResults[i];
       setupIcons(name, icon, j);
    }
    for (; j < MAX_PAGE_RENDER; j++) {

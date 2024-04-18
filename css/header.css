@@ -1,9 +1,7 @@
 header {
-   position: sticky;
+   position: relative;
    width: 100%;
    height: var(--header-h);
-   left: 0;
-   top: 0;
    background: #ddd;
    display: flex;
    justify-content: space-evenly;
@@ -115,23 +113,22 @@ header .text-input.number .logo {
       margin-left: 50px;
    }
 }
-@media (prefers-color-scheme: dark) {
-   header {
-      background: #444444;
-   }
-   
-   header .text-input {
-      box-shadow: inset 1px 1px 2px #0007;
-      background: #dbdbdb;
-   }
-   .text-input #delete-search {
-      color: #000000aa;
-   }
-   header .text-input.number .logo {
-      color: #555;
-      border-right: solid 1px #000;
-   }
-   #iconColorMod {
-      color: #999;
-   }
+
+/* ----------- for dark mode --------- */
+body.dark header {
+   background: #444444;
+}
+body.dark header .text-input {
+   box-shadow: inset 1px 1px 2px #0007;
+   background: #dbdbdb;
+}
+body.dark .text-input #delete-search {
+   color: #000000aa;
+}
+body.dark header .text-input.number .logo {
+   color: #555;
+   border-right: solid 1px #000;
+}
+body.dark #iconColorMod {
+   color: #999;
 }

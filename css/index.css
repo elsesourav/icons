@@ -53,6 +53,8 @@ body {
    position: relative;
    width: 100svw;
    height: 100svh;
+   display: grid;
+   grid-template-rows: var(--header-h) 1fr var(--footer-h);
    background: #dddddd;
    overflow: hidden;
 }
@@ -64,7 +66,7 @@ body {
    --m: 10px;
    position: relative;
    max-width: 100%;
-   height: calc(100% - var(--header-h) + var(--footer-h));
+   height: 100%;
    padding: var(--m) 1rem;
    display: flex;
    justify-content: center;
@@ -83,7 +85,6 @@ body {
       auto-fill,
       minmax(calc(var(--font-size) * 2.5), 1fr)
    );
-   padding-bottom: calc(var(--font-size) * 4);
 }
 #icon-grid #scroll-list .icon {
    position: relative;
@@ -103,7 +104,7 @@ body {
    display: none;
 }
 #icon-grid #scroll-list .icon:hover {
-   background: radial-gradient(circle, #b9feff 0%, #00fff6 100%);;
+   background: radial-gradient(circle, #b9feff 0%, #00fff6 100%);
    box-shadow: 0 calc(var(--gap) / 2) var(--gap) #000;
 }
 #icon-grid #scroll-list .icon i {
@@ -226,7 +227,12 @@ body {
    align-items: center;
    justify-content: center;
 }
-#icon-selector-window #content #copy-tag-sec #tag-text #copy-text #text-class-name {
+#icon-selector-window
+   #content
+   #copy-tag-sec
+   #tag-text
+   #copy-text
+   #text-class-name {
    cursor: copy;
 }
 #icon-selector-window #content #copy-tag-sec #show-copy-status {
@@ -358,63 +364,62 @@ body {
    }
 }
 
-@media (prefers-color-scheme: dark) {
-   body {
-       background-color: #222222;
-   }
+body.dark {
+   background-color: #222222;
+}
 
-   #icon-grid #scroll-list .icon {
-      border: solid 2px #000000;
-      box-shadow: 0 0 0 #000000;
-      background: #282a2e;
-   }
+/* ----------- for dark mode --------- */
+body.dark #icon-grid #scroll-list .icon {
+   border: solid 2px #000000;
+   box-shadow: 0 0 0 #000000;
+   background: #282a2e;
+}
 
-   #icon-grid #scroll-list .icon:hover {
-      background: radial-gradient(circle, #000ba9 0%, #000547 100%);
-      box-shadow: 0 var(--gap) calc(var(--gap)*2) #000000;
-   }
-   #icon-grid #scroll-list .icon i {
-      color: #e1fff9;
-   }
-   #icon-grid #scroll-list .icon p {
-      color: #ffffff;
-      background: rgba(0, 0, 0, 0.2);
-   }
-   #icon-grid #scroll-list .icon:hover p {
-      background: rgba(0, 0, 0, 0.5);
-   }
+body.dark #icon-grid #scroll-list .icon:hover {
+   background: radial-gradient(circle, #000ba9 0%, #000547 100%);
+   box-shadow: 0 var(--gap) calc(var(--gap) * 2) #000000;
+}
+body.dark #icon-grid #scroll-list .icon i {
+   color: #e1fff9;
+}
+body.dark #icon-grid #scroll-list .icon p {
+   color: #ffffff;
+   background: rgba(0, 0, 0, 0.2);
+}
+body.dark #icon-grid #scroll-list .icon:hover p {
+   background: rgba(0, 0, 0, 0.5);
+}
 
-   #use-info {
-      background: #000000;
-      border: solid 3px #400064;
-   }
+body.dark #use-info {
+   background: #000000;
+   border: solid 3px #400064;
+}
 
-   #icon-selector-window {
-      background: rgba(0, 0, 0, 0.7);
-   }
-   #icon-selector-window #content {
-      background: #282a38;
-      border-style: solid;
-      border-color: #fff #888 #888 #fff;
-   }
+body.dark #icon-selector-window {
+   background: rgba(0, 0, 0, 0.7);
+}
+body.dark #icon-selector-window #content {
+   background: #282a38;
+   border-style: solid;
+   border-color: #fff #888 #888 #fff;
+}
 
-   #icon-selector-window #content #content-id {
-      color: #6d6d6d;
-   }
-   #icon-selector-window #content #icon-box i {
-      color: #d1cfff;
-   }
-   #icon-selector-window #content #icon-box i:hover {
-      color: #ffffff;
-   }
-   #icon-selector-window #content #close-button {
-      box-shadow: 0 2px 6px #000000;
-      background: #111111;
-      color: #ffffff;
-   }
-   #icon-selector-window #content #close-button:hover {
-      background: #adadad;
-      color: #ff0000;
-      box-shadow: 0 0 2px #000;
-   }
+body.dark #icon-selector-window #content #content-id {
+   color: #6d6d6d;
+}
+body.dark #icon-selector-window #content #icon-box i {
+   color: #d1cfff;
+}
+body.dark #icon-selector-window #content #icon-box i:hover {
+   color: #ffffff;
+}
+body.dark #icon-selector-window #content #close-button {
+   box-shadow: 0 2px 6px #000000;
+   background: #111111;
+   color: #ffffff;
+}
+body.dark #icon-selector-window #content #close-button:hover {
+   background: #adadad;
+   color: #ff0000;
+   box-shadow: 0 0 2px #000;
 }
