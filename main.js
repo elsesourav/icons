@@ -20,7 +20,7 @@ let allResults = [];
 let htmlIconStrings = "";
 let fontSize = 32;
 let colorOnly = false;
-let colorMode = colorScheme.matches ? "dark" : "light";;
+let colorMode = localStorage.getItem("colorScheme") || (colorScheme.matches ? "dark" : "light");
 let targetValue = "";
 
 
@@ -54,7 +54,6 @@ colorScheme.addEventListener("change", () => {
 
 colorModeButton.addEventListener("click", () =>{
    colorMode = colorMode == "dark" ? "light" : "dark";
-   console.log(colorMode);
    localStorage.setItem("colorScheme", colorMode);
    document.body.classList.toggle("dark", colorMode == "dark");
    colorChangeScheme();
