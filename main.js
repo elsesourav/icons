@@ -44,6 +44,7 @@ const useInfo = document.getElementById("use-info");
 const footerClose = document.getElementById("footer-close");
 const iconColorMod = document.getElementById("iconColorMod");
 const colorModeButton = document.getElementById("colorMod");
+const iconGrid = document.getElementById("icon-grid");
 
 colorScheme.addEventListener("change", () => {
    if (!localStorage.getItem("colorScheme")) {
@@ -203,7 +204,6 @@ const pagesElement = document.getElementById("pages");
 const pages = new Pages(
    MAX_PAGE_BUTTON,
    pagesElement,
-   pageClickAction,
    pageClickAction
 );
 
@@ -220,6 +220,7 @@ function pageClickAction(current) {
       const [icon] = HTML_ICON_ELEMENTS[j];
       icon.classList.add("hide");
    }
+   iconGrid.scrollTo(0,0);
 }
 
 function searchIconAndDisplay() {
