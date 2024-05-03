@@ -355,6 +355,9 @@ body {
 }
 
 @media only screen and (min-width: 800px) {
+   #icon-grid {
+      padding-top: calc(var(--header-h) / 1.4);
+   }
    #use-info > * {
       scale: 1.5;
    }
